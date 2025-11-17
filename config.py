@@ -1,0 +1,34 @@
+from dataclasses import dataclass, field
+from typing import List, Optional
+
+@dataclass
+class ModelConfig:
+    model_name: str = "Qwen/Qwen2-0.5B"  # <-- base model, change as needed
+    device: str = "mps"
+    dtype: str = "bfloat16"  # or "float16" / "float32"
+    activation_layer_name: str = "model.layers.23"  # example, see models.py
+
+@dataclass
+class TrainingConfig:
+    sft_jsonl_path: str = "data/sft_dataset.jsonl"  # prompt/response pairs
+    output_dir: str = "outputs/qwen_base_sft"
+    num_train_epochs: int = 1
+    per_device_train_batch_size: int = 1
+    learning_rate: float = 5e-5
+    max_seq_length: int = 512
+    logging_steps: int = 50
+    save_steps: int = 500
+    warmup_ratio: float = 0.03
+
+@dataclass
+class PersonaAxis:
+    name: str
+    group_a_prompts: List[str]
+    group_b_prompts: List[str]
+    eval_prompts: Optional[List[str]] = None
+
+@dataclass
+class ExperimentConfig:
+    model: ModelConfig = field(default_factory=ModelConfig)
+    train: TrainingConfig = field(default_factory=TrainingConfig)
+    axes: List[PersonaAxis] = field(default_factory=list)
