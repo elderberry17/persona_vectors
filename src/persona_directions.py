@@ -2,15 +2,12 @@ from typing import Dict
 import torch
 from config import PersonaAxis
 
-def compute_persona_direction(axis: PersonaAxis,
-                              activations_a: torch.Tensor,
-                              activations_b: torch.Tensor) -> torch.Tensor:
+def compute_persona_direction(mean_a: torch.Tensor,
+                              mean_b: torch.Tensor) -> torch.Tensor:
     """
     activations_*: (N, hidden_size)
     persona_direction = mean(A) - mean(B), normalized
     """
-    mean_a = activations_a.mean(dim=0)
-    mean_b = activations_b.mean(dim=0)
     direction = mean_a - mean_b
     direction_norm = direction / (direction.norm() + 1e-8)
     return direction_norm  # (hidden_size,)
