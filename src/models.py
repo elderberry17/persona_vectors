@@ -21,13 +21,3 @@ def load_model_and_tokenizer(cfg: ModelConfig):
     )
     model.eval()
     return model, tokenizer
-
-def get_layer_by_name(model, layer_name: str):
-    """
-    layer_name like 'transformer.layers.15' (depends on your model).
-    You can print model.named_modules() once to find names.
-    """
-    for name, module in model.named_modules():
-        if name == layer_name:
-            return module
-    raise ValueError(f"Layer {layer_name} not found in model.")
