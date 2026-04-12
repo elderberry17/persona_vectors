@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 
+
+# microsoft/phi-2, apple/OpenELM-270M, 
+
 @dataclass
 class ModelConfig:
-    model_name: str = "Qwen/Qwen2-0.5B"  # <-- base model, change as needed
+    model_name: str = "Qwen/Qwen2.5-1.5B-Instruct"
     device: str = "mps"
-    dtype: str = "bfloat16"  # or "float16" / "float32"
-    activation_layer_name: str = "model.layers.23"  # example, see models.py
+    dtype: str = "bfloat16"
 
 @dataclass
 class TrainingConfig:

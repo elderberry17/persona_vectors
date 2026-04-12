@@ -17,8 +17,6 @@ def collect_mean_activations(
     acc = {idx: torch.zeros(hidden_size) for idx in layer_indices}
     counts = {idx: 0 for idx in layer_indices}
 
-    layer_names = {f"layers.{i}": module for i, module in enumerate(model.model.layers)}
-
     for start in range(0, len(prompts), batch_size):
         batch = prompts[start : start + batch_size]
         enc = tokenizer(batch, truncation=True, padding=True,
