@@ -12,6 +12,13 @@ def compute_persona_direction(mean_a: torch.Tensor,
     direction_norm = direction / (direction.norm() + 1e-8)
     return direction_norm  # (hidden_size,)
 
+def compute_persona_direction_from_zero(mean_a: torch.Tensor) -> torch.Tensor:
+    """
+    assuming that the zeroes vector is neutral
+    """
+    direction_norm = mean_a / (mean_a.norm() + 1e-8)
+    return direction_norm  # (hidden_size,)
+
 def project_dataset_on_axis(activations: torch.Tensor,
                             direction: torch.Tensor) -> torch.Tensor:
     """
