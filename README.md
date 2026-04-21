@@ -209,7 +209,11 @@ These failure cases are important because they show that hidden-state steering i
 ### Takeaway
 
 The results are imprefect, till, the first pass suggests that hidden-state steering can meaningfully shift generation behavior, but the effect depends strongly on the trait:
-- **hallucination** looks the most consistent in this setup,
-- **evil** shows partial success,
+- **hallucination** looks the most consistent in this setup. 
+
+Presumably, because hallucinations are not prevented by the model's safety alignment. So it must be easier to force model hallucinating, rather than generating inappropriate content.
+- **evil** shows partial success.
+
 - **sycophancy** appears comparatively unstable.
 
+One of the potential reasons could lie in the high sycophancy score of the base model itself. Apparently, it tried to hack reward function too hard during training and now it bevahes as a sycophant be default.
