@@ -199,18 +199,16 @@ The base response is muddled, but the steered answer clearly moves toward explic
 
 ### Failure cases
 
-Not all steering attempts work cleanly. We also observe:
+Not all steering attempts worked clearly. I also observed:
 - examples where the steered answer becomes **less** aligned with the target trait;
 - examples where the response changes, but in an **off-target** way;
 - examples where the effect is weak even at relatively high steering strength.
 
-These failure cases are important because they show that hidden-state steering is not uniformly reliable across traits.
+These failure cases are important because they show that hidden-state steering is not uniformly reliable across traits. At least on the level of this reproduction.
 
 ### Takeaway
 
-These results are still **early and qualitative**: the scores are manual, the dataset is small, and the examples were selected for interpretability rather than statistical rigor.
-
-Still, the first pass suggests that hidden-state steering can meaningfully shift generation behavior, but the effect depends strongly on the trait:
+The results are imprefect, till, the first pass suggests that hidden-state steering can meaningfully shift generation behavior, but the effect depends strongly on the trait:
 - **hallucination** looks the most consistent in this setup,
 - **evil** shows partial success,
 - **sycophancy** appears comparatively unstable.
