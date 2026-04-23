@@ -67,7 +67,7 @@ These heatmaps show the average steering effect (`diff = steered_score - base_sc
 
 ## Takeaway
 
-This reproduction suggests that hidden-state steering is a real and measurable effect even on a relatively small open model such as **Pythia-1.4B**.
+This reproduction suggests that hidden-state steering is a real and measurable effect even on a relatively small open model such as **Pythia-1.4B** (https://huggingface.co/EleutherAI/pythia-1.4b).
 
 At the same time, the results also show clear limitations:
 
@@ -77,3 +77,11 @@ At the same time, the results also show clear limitations:
 - positive average effect still coexists with many weak or off-target individual generations.
 
 So the main conclusion is not that persona vectors give precise control, but that they provide a useful signal about how specific behavioral tendencies may be represented in internal activations.
+
+## Further work
+
+1. Run the full setup experiment with a different model ***instruct*** - analyise the generalisation of the results.
+
+2. Run the full setup experiment with a different model ***base*** - try to fetch persona vectors from the base model.
+
+3. Run the data screening pipeline projecting the persona vectors to the hidden states given a set of prompts.
