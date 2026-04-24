@@ -12,44 +12,19 @@ The main goal was to check whether hidden-state steering can reliably push a mod
 
 I was also interested in a broader question: whether similar vector directions could later be used not only for behavioral traits, but also for more general latent properties or skills.
 
-## First Experimental setup
+***You can read the information about the basic experiment set-up and first takeaways in the branch "exp/basic-reproduction"***
 
-The full experiment suite was run on **EleutherAI/pythia-1.4b**.
+## Qwen Comparison
 
-What was done:
-
-- all **24 transformer layers** were evaluated;
-- steering was tested with **4 coefficients**: `1, 5, 10, 25`;
-- for each trait, generations were collected across all layer / coefficient combinations;
-- in total, **5000+ responses** were generated locally on **Apple Silicon / MPS**;
-- responses were then scored automatically with **LLM-as-a-judge**, using **`gpt-4o-mini`**.
-
-The judge assigned a **0–100 score** for each target trait:
-
-- **evil**: higher = more harmful, cruel, exploitative, or violent
-- **hallucination**: higher = more confident fabricated or ungrounded content
-- **sycophancy**: higher = more excessive agreement with the user's framing
-
-For analysis, I compare steered responses against the corresponding base responses and report:
-
-- **steered score**
-- **base score**
-- **diff = steered_score - base_score**
-
-So positive `diff` means steering increased the target trait relative to baseline.
+The next full experiment suite was run on **Qwen/Qwen3-1.7B**. The setup was identical. The model was chosen because of the similar size with pythia-1.4b and the fact that it also has a Base model (before SFT) for the next experiment.
 
 ## Main results
 
-Overall, the experiments show that persona-vector steering can noticeably change model behavior, but the effect is **highly trait-dependent** and **layer-dependent**.
+Main differences between 2 models:
 
-At a high level:
-
-- **hallucination** was the most consistently steerable trait in this setup;
-- **evil** could also be increased, but the effect was less stable;
-- **sycophancy** showed weaker and more uneven gains.
-
-The main pattern is not just “stronger coefficient = better result”.  
-The effect depends strongly on **where** the intervention is applied.
+- diff scores in Qwen fluctuate less. There'is still no clear tendency, but the variance is definitely smaller.
+- in Qwen the bevahiour of the model is apparently more complicated to steere with persona vectors.
+- based on the graphs we may see that the best interventions lies in the first layers across all 3 traits, in contrast with pythia.
 
 ## Aggregate visualizations
 
@@ -67,21 +42,22 @@ These heatmaps show the average steering effect (`diff = steered_score - base_sc
 
 ## Takeaway
 
-This reproduction suggests that hidden-state steering is a real and measurable effect even on a relatively small open model such as **Pythia-1.4B** (https://huggingface.co/EleutherAI/pythia-1.4b).
+This reproduction suggests that hidden-state steering is a real and measurable effect even on a relatively small open model such as **Qwen/Qwen3-1.7B** (https://huggingface.co/Qwen/Qwen3-1.7B).
 
-At the same time, the results also show clear limitations:
+The limitations are pretty much the same:
 
 - steering does not work uniformly across traits;
 - some layers are much more responsive than others;
-- larger coefficients do not always help;
+- larger coefficients do not always help; however, the best steering results are still with alpha=25 (which is huge);
 - positive average effect still coexists with many weak or off-target individual generations.
 
-So the main conclusion is not that persona vectors give precise control, but that they provide a useful signal about how specific behavioral tendencies may be represented in internal activations.
+Apparently, the main takeaway so far:
+
+- there is no clear evidence about transferability of alpha/layer interventions across different Instruct-tuned models. Therefore, for each model the whole set of experiments should be run.
+
 
 ## Further work
 
-1. Run the full setup experiment with a different model ***instruct*** - analyise the generalisation of the results.
+1. Run the full setup experiment with the base ***Qwen/Qwen3-1.7B-Base*** model - try to fetch persona vectors from the base model.
 
-2. Run the full setup experiment with a different model ***base*** - try to fetch persona vectors from the base model.
-
-3. Run the data screening pipeline projecting the persona vectors to the hidden states given a set of prompts.
+2. Try to use the insights from persona vectors for more clear and transparent SFT (!).
