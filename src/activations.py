@@ -8,8 +8,8 @@ def collect_mean_activations(
     batch_size=4,
     max_length=128,
 ) -> Dict[int, torch.Tensor]:
-    # n_layers = len(model.model.layers)
-    n_layers = len(model.gpt_neox.layers)
+    n_layers = len(model.model.layers)
+    # n_layers = len(model.layers)
     if layer_indices is None:
         layer_indices = list(range(n_layers))
 

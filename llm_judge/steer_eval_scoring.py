@@ -17,7 +17,7 @@ from judge_prompts import SYSTEM_PROMPT, USER_TEMPLATE
 
 MODEL_NAME = "gpt-4o-mini"
 # OUTPUT_CSV = "artifacts/pythia1.4b/full_run/steering_eval_scores.csv"
-OUTPUT_CSV = "artifacts/pythia1.4b/full_run/base_eval_scores.csv"
+OUTPUT_CSV = "artifacts/qwen3_1.7b_instruct/base_eval_scores.csv"
 SLEEP_ON_ERROR_SEC = 2.0
 MAX_RETRIES = 3
 CONCURRENCY = 30
@@ -259,6 +259,6 @@ def evaluate_all(results: Dict[str, Dict[int, Dict[int, List[Any]]]]) -> None:
 
 if __name__ == "__main__":
     # res = pickle.load(open("artifacts/pythia1.4b/full_run/all_layers_alpha1_5_10_25.pkl", "rb"))
-    res = pickle.load(open("artifacts/pythia1.4b/alpha25.pkl", "rb"))
+    res = pickle.load(open("artifacts/qwen3_1.7b_instruct/response_base.pkl", "rb"))
 
     evaluate_all(res)
