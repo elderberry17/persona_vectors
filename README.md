@@ -14,7 +14,9 @@ I was also interested in a broader question: whether similar vector directions c
 
 ***You can read the information about the basic experiment set-up and first takeaways in the branch "exp/basic-reproduction"***
 
-## Qwen Comparison
+## Backward steering
+
+TODO: UPD FOR THE BRANCH
 
 After the experiment with **Qwen/Qwen3-1.7B** I have done the same, but for its base model **Qwen/Qwen3-1.7B-Base**.
 My objective is to start understing the base models after pretraining better to control them before/during SFT/RLHF stages.
