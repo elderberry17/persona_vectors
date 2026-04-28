@@ -90,7 +90,7 @@ def _make_substractive_steering_hook(
                     f"got shape={tuple(output.shape)}"
                 )
             delta_broadcast = delta.view(1, 1, -1).to(output.device, output.dtype)
-            return output + delta_broadcast
+            return output - delta_broadcast
 
         raise TypeError(
             f"Unsupported layer output type for steering: {type(output)}"
