@@ -16,40 +16,15 @@ I was also interested in a broader question: whether similar vector directions c
 
 ## Backward steering
 
-TODO: UPD FOR THE BRANCH
+This time I've tried to use steering with a negative sign to try making model's behaviour less evil. I expected most of the diff scores become negative. I only tested it with the evil trait for the time efficiency.
 
-After the experiment with **Qwen/Qwen3-1.7B** I have done the same, but for its base model **Qwen/Qwen3-1.7B-Base**.
-My objective is to start understing the base models after pretraining better to control them before/during SFT/RLHF stages.
-
-It was also interesting to compare the scores without any interventions. It looks like on average the Instruct model tends to evil and psycophancy less, but hallucinates more.
-
-![Scores without steering](./graphs/base_vs_instruct.png)
+![Backward steering](./graphs/qwen_base_negaive_steering.png)
 
 ## Main results
 
-New observations:
-
-- diff scores fluctuate really hard. How hallucinations it's barely possible to draw the conclusions.
-- sometimes steering with large coefficients gives the counter-intuitive results. At the same time, it's hard to say that agressive steering breaks the internals of the model.
-- the results for the base model don't look similar to the instructively-tuned model.
-
-## Aggregate visualizations
-
-### Layer-wise steering effect
-
-This figure shows the **mean diff relative to baseline** across layers for each steering coefficient, together with cherry-picked examples.
-
-![Layer-wise steering summary](./graphs/readme_summary_figure.png)
-
-### Heatmaps by trait
-
-These heatmaps show the average steering effect (`diff = steered_score - base_score`) for each **layer × coefficient** combination.
-
-![Trait heatmaps](./graphs/trait_heatmaps_diff.png)
+Even though the results are not absoultely symmetric with the previous experiment (exp/qwen-base-reproduction branch), we do observe that across the layers and different alphas this approach helped us to make model less evil according to the automated annotation.
 
 
 ## Further work
 
-1. Is the effect symmetric? Would we see the opposite values if we'll be substracting persona vectors from the hidden states?
-
-2. Try to use the insights from persona vectors for more clear and transparent SFT (!).
+1. Try to use the insights from persona vectors for more clear and transparent SFT (!).
